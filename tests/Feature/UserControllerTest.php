@@ -51,12 +51,18 @@ class UserControllerTest extends TestCase
         ])->get("/login")->assertRedirect("/");
     }
 
-    public function testLoginForUserAlreadyLogin() {
+    public function testLoginForUserAlreadyLogin()
+    {
         $this->withSession([
             "user" => "eka"
         ])->post("/login", [
             "user" => "eka",
             "password" => "password"
         ])->assertRedirect("/");
+    }
+
+    public function testLogoutForGuest()
+    {
+        $this->post("/logout")->assertRedirect("/login");
     }
 }
