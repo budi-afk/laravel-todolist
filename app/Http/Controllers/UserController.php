@@ -48,6 +48,6 @@ class UserController extends Controller
     public function doLogout(Request $request)
     {
         $request->session()->forget('user');
-        return redirect('/');
+        return redirect('/login');
     }
 }
