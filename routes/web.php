@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TodolistController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\OnlyGuestMiddleware;
 use App\Http\Middleware\OnlyMemberMiddleware;
@@ -23,4 +24,10 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/login', 'login')->middleware(OnlyGuestMiddleware::class);
     Route::post('login', 'doLogin')->middleware(OnlyGuestMiddleware::class);
     Route::post('logout', 'doLogout')->middleware(OnlyMemberMiddleware::class);
+});
+
+Route::controller(TodolistController::class)->middleware(OnlyMemberMiddleware::class)->group(function () {
+    Route::get('/todolist', 'index');
+    Route::post('/todolist', 'store');
+    Route::delete('/todolist/{id}/delete', 'remove');
 });
